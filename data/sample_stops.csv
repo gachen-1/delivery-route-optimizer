@@ -1,0 +1,5 @@
+id,name,type,latitude,longitude
+D,Depot,depot,42.3601,-71.0589
+A,North Shop,delivery,42.3736,-71.1097
+B,East Shop,delivery,42.3656,-71.0222
+C,South Shop,delivery,42.3380,-71.0470

@@ -1,0 +1,12 @@
+id,name,type,latitude,longitude
+D,Seaport Depot,depot,42.3519,-71.0446
+S1,Back Bay,delivery,42.3503,-71.0810
+S2,Beacon Hill,delivery,42.3588,-71.0707
+S3,North End,delivery,42.3647,-71.0542
+S4,South Boston,delivery,42.3381,-71.0476
+S5,Charlestown,delivery,42.3782,-71.0602
+S6,Central Square,delivery,42.3653,-71.1037
+S7,Davis Square,delivery,42.3967,-71.1226
+S8,Brookline Village,delivery,42.3329,-71.1167
+S9,Jamaica Plain,delivery,42.3097,-71.1151
+S10,Fields Corner,delivery,42.3002,-71.0617
