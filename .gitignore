@@ -1,0 +1,10 @@
+# build output
+route_optimizer
+*.o
+results.json
+
+# personal report drafts (each member submits their own PDF on Canvas)
+report/
+Final_Project_Iteration3_*.pdf
+
+.DS_Store
