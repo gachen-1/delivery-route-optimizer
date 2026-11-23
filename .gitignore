@@ -1,10 +1,13 @@
-# build output
+# compiled programs
 route_optimizer
+test_runner
 *.o
-results.json
+*.out
+*.dSYM/
 
-# personal report drafts (each member submits their own PDF on Canvas)
-report/
-Final_Project_Iteration3_*.pdf
+# files written by the program
+output/
 
+# editor and system files
+.vscode/
 .DS_Store
