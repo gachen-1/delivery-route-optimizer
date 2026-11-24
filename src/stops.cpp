@@ -1,15 +1,19 @@
+
 // stops.cpp - reading and validating the stop file
 #include "stops.h"
 
+#include <cerrno>
 #include <cmath>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <sstream>
 
 namespace {
 
-// Removes spaces, tabs and a trailing '\r' from both ends.
+// Removes spaces, tabs and a trailing '
+' from both ends.
 std::string trim(const std::string& s) {
     size_t start = s.find_first_not_of(" \t\r");
     if (start == std::string::npos) return "";
@@ -17,19 +21,25 @@ std::string trim(const std::string& s) {
     return s.substr(start, end - start + 1);
 }
 
-// Converts text to a number. Returns false if the text is empty or not a number.
+// Converts text to a finite number and rejects trailing non-whitespace text.
 bool parseDouble(const std::string& text, double& value) {
     if (text.empty()) return false;
     char* end = nullptr;
+    errno = 0;
     value = std::strtod(text.c_str(), &end);
-    return *end == '\0';
+    return end != text.c_str() && *end == '\0' && errno != ERANGE &&
+           std::isfinite(value);
 }
 
 bool parseInt(const std::string& text, int& value) {
     if (text.empty()) return false;
     char* end = nullptr;
+    errno = 0;
     long v = std::strtol(text.c_str(), &end, 10);
-    if (*end != '\0') return false;
+    if (end == text.c_str() || *end != '\0' || errno == ERANGE ||
+        v < std::numeric_limits<int>::min() || v > std::numeric_limits<int>::max()) {
+        return false;
+    }
     value = static_cast<int>(v);
     return true;
 }
@@ -63,11 +73,11 @@ LoadResult loadStops(const std::string& fileName) {
         if (fields.size() != 4) {
             reason = "expected 4 fields, found " + std::to_string(fields.size());
         } else if (!parseInt(fields[0], s.id)) {
-            reason = "id is not an integer";
+            reason = "id is not a valid integer";
         } else if (fields[1].empty()) {
             reason = "name is empty";
         } else if (!parseDouble(fields[2], s.lat) || !parseDouble(fields[3], s.lon)) {
-            reason = "latitude or longitude is not a number";
+            reason = "latitude or longitude is not a finite number";
         } else if (s.lat < -90 || s.lat > 90 || s.lon < -180 || s.lon > 180) {
             reason = "coordinates out of range";
         }
