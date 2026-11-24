@@ -12,8 +12,7 @@
 
 namespace {
 
-// Removes spaces, tabs and a trailing '
-' from both ends.
+// Trims spaces, tabs, and carriage returns from a field.
 std::string trim(const std::string& s) {
     size_t start = s.find_first_not_of(" \t\r");
     if (start == std::string::npos) return "";
